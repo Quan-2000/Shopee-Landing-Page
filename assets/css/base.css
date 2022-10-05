@@ -1,0 +1,278 @@
+/*======= BASE CSS =======*/
+:root {
+    --main-color: #fb5533;
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: rgb(102, 102, 102);
+    --border-color: #dbdbdb;
+    --rating-color: #ffce3d;
+
+    /*chỉ đúng trên PC -> trên mobile & tablet ko còn navbar -> sai*/
+    --header-height: 120px;
+    --navbar-height: 36.4px;
+    --header-with-search-height: calc(var( --header-height) - var(--navbar-height));
+    --header-sort-bar-height: 46px;
+}
+
+* {
+    box-sizing: inherit; /*kế thừa lại box-sizing: border-box trong html*/
+}
+
+/*mặc định trình duyệt: 100% = 16px 
+    -> 62.5% = 10px = 1rem*/
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem; /*thường đa số đọ cao các dong ở mức 16px*/
+    font-family: "Helvetica Neue", Helvetica, Arial, 文泉驛正黑, "WenQuanYi Zen Hei", "Hiragino Sans GB", "儷黑 Pro", "LiHei Pro", "Heiti TC", 微軟正黑體, "Microsoft JhengHei UI", "Microsoft JhengHei", sans-serif;
+    /*sử dụng Google Roboto Fonts, sans-serif: chủng chữ ko chân*/
+    box-sizing: border-box;
+}
+
+/*
+======= RESPONSIVE ======= 
+Sẽ xóa vì đã có grid.css                  */
+
+/*Chuẩn bị nền móng cho việc làm responsive sau này
+grid {
+    row {
+        column {}
+    }
+}
+*/
+
+
+/*những thẻ nằm trong thẻ có class này nằm trên 1 hàng ngang*/
+.grid__row {
+    display: flex;
+    flex-wrap: wrap; /*độ dài thẻ con vượt quá thì nhảy xuống hàng*/
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+/*test responsive*/
+.grid__column-2 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6666666667%;
+}
+
+.grid__column-product {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+.grid__column-footer {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 20%;
+}
+
+.grid__column-10 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 83.3333333333%;
+}
+
+/*Animation appear slowly*/
+@keyframes appearSlowly {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes growth {
+    from {
+        transform: scale(var(--growth-from));
+    }
+    to {
+        transform: scale(var(--growth-to));
+    }
+}
+
+
+/*======= BASE MODAL =======*/
+/*lớp modal chiếm hết màn hình*/
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+
+    animation: appearSlowly linear 0.4s;
+}
+
+.modal__overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+
+    --growth-from: 60%; /*from xuất hiện từ độ lớn 60% -> 100%*/
+    --growth-to: 100%;
+    animation: growth linear 0.4s;
+}
+
+
+/*======= BUTTON STYLE =======*/
+.btn {
+    min-width: 124px; /*min-width: khi có thêm chữ nút tự động tăng độ rộng*/
+    height: 34px;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    font-size: 1.3rem;
+    padding: 0 12px;
+    color: var(--text-color);
+    background-color: var(--white-color);
+    outline: none;
+    cursor: pointer;
+
+    display: inline-flex; /*khi có nhiều nút -> nằm ngang hàng*/
+    justify-content: center;
+    align-items: center;
+}
+
+.btn.btn--normal:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* .a.b -> css cho thẻ có tất cả các class trên*/
+.btn.btn--main {
+    background-color: var(--main-color);
+    color: var(--white-color);
+}
+
+/*nút bị vô hiệu hóa*/
+.btn.btn--disabled {
+    cursor: default;
+    color: #333;
+    background-color: #ccc;
+    filter: brightness(90%);    /*giảm độ sáng*/
+    cursor: no-drop;
+}
+
+.btn.btn--size-s {
+    height: 32px;
+    font-size: 13px;
+    padding: 0 8px;
+}
+
+/* Selection */
+.select-input {
+    position: relative;
+    min-width: 200px;
+    height: 34px;
+    border-radius: 2px;
+    padding: 0 12px;
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 5px rgb(189, 189, 189);
+}
+
+.select-input:hover .select-input__list {
+    display: block;
+}
+
+.select-input__label {
+    font-size: 1.4rem;
+}
+
+.select-input__icon {
+    position: relative;
+    top: 1px;
+    font-size: 1.4rem;
+    color: #b9b8b8;
+}
+
+.select-input__list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 26px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    padding: 8px 16px;
+    list-style: none;
+    box-shadow: 0 1px 5px rgb(189, 189, 189);
+    z-index: 1;
+
+    display: none;
+}
+
+.select-input__list::after {
+   content: "";
+   width: 100%;
+   height: 20px;
+   top: -10px;
+   position: absolute;
+   display: block;
+}
+
+.select-input__list-item-link {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    text-decoration: none;
+
+    display: block; /*thẻ a phải có thuộc tính này mới có thể dùng padding*/
+    padding: 4px 0;
+}
+
+.select-input__list-item-link:hover {
+    color: var(--main-color);
+}
+
+
+/*======= PAGINATION =======*/
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+.pagination-item {
+    margin: 0 15px;
+}
+
+.pagination-item--active .pagination-item__link {
+    color: var(--white-color);
+    background-color: var(--main-color);
+}
+
+.pagination-item--active .pagination-item__link:hover {
+    opacity: 0.8;
+}
+
+.pagination-item__link {
+    display: block;
+    text-decoration: none;
+    font-size: 1.9rem;
+    color: rgba(0,0,0,.4);
+    min-width: 40px; /*nếu tăng content thì tự động tăng kích thước*/
+    
+    --height: 30px; /*đặt biến để sửa 1 lần cho tất cả*/
+    height: var(--height);
+    line-height: var(--height);
+    text-align: center;
+    border-radius: 2px;
+}
+
+.pagination-item__icon {
+    
+}

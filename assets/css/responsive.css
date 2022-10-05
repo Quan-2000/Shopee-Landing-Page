@@ -1,0 +1,155 @@
+/* ===== làm phần ẩn/hiện cho nhiều màn hình 
+                -> phần bố cục vẫn dựa vào grid.css =====*/
+
+/*Mobile & Tablet*/
+@media (max-width: 1023px)
+{
+    .hide-on-mobile-tablet {
+        display: none;
+    } 
+    /*Show on mobile tablet*/
+
+    .header {
+        position: fixed;
+        z-index: 3;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .header__cart-list {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        width: 100%;
+        
+        padding: 0 calc((100% - 644px) / 2);
+        /* lấy (100% chiều rộng - chiều rộng header) / 2 vì có 2 bên trái/phải*/
+    }
+
+    .header__cart-list::after {
+        display: none;
+    }
+
+    .app__container {
+        margin-top: calc(var(--header-height) + var(--header-sort-bar-height));
+        /*thụt xuống dưới header 1 khoảng = chính header + phần sort bar
+        -> content ko bị nằm dưới lớp header*/
+    }
+
+    .header__sort-bar {
+        display: flex;
+    }
+
+    .app__content {
+        padding-top: 10px;
+    }
+
+    .mobile-category {
+        display: block; /*hien thi thanh truot category tren mobile va tablet*/
+    }
+}
+
+/*Mobile */
+@media (max-width: 739px)
+{
+    :root {
+        /*do trên mobile ko còn navbar -> navbar: 0px 
+            -> header-with-search chiếm hết chiều cao 
+            -> đưa về chiều cao gốc là 68px
+        */
+        --header-height: 54px;
+        --navbar-height: 0px;
+    }
+
+    .app
+    .hide-on-mobile {
+        display: none;
+    }
+
+    .header-with-search {
+        justify-content: space-between;
+    }
+
+    .header__cart,
+    .header__logo {
+        width: unset; /*ko thiet lap chieu rong tren mobile*/
+    }
+
+    .header__search {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        height: 46px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        padding: 0 16px;
+        animation: mobileSearchSideIn linear 0.25s;
+        display: none;
+    }
+
+    @keyframes mobileSearchSideIn {
+        from {
+            opacity: 0;
+            top: calc(var(--header-height) / 2);
+        }
+
+        to {
+            opacity: 1;
+            top: var(--header-height);
+        }
+    }
+
+    .header__search-history {
+        position: fixed;
+        width: 100%;
+        top: calc(var(--header-height) + var(--header-sort-bar-height));
+        left: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .pagination-item {
+        margin: 0;
+    }
+
+    .pagination-item__link {
+        --height: 28px;
+        font-size: 1.6rem;
+        min-width: 36px;
+    }
+
+    .app__content {
+        margin: 0 4px;
+    }
+
+    .header__mobile-search {
+        display: block; /*hien thi thanh search tren mobile*/
+    }
+
+    .header__logo-image {
+        width: 118px;
+    }
+
+    .footer__content {
+        padding: 0 16px;
+    }
+}
+
+/*Tablet*/
+@media (min-width: 740px) and (max-width: 1023px)
+{
+    .hide-on-tablet {
+        display: none;
+    }
+
+    .header__cart {
+        width: 60px;
+        text-align: right;
+        margin-top: 0px;
+    }
+
+    .app {
+        width: 794.4px;
+    }
+}
